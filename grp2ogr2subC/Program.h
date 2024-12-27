@@ -1,47 +1,26 @@
 /*
- * SAKARYA ÜNİVERSİTESİ 2024 GÜZ DÖNEMİ
- * İŞLETİM SİSTEMLERİ PROJE ÖDEVİ
+ * SAKARYA ‹N›VERS›TES› 2024 G‹Z D÷NEM›
+ * ›ﬁLET›M S›STEMLER› PROJE ÷DEV›
  *
- * Grup üyeleri:
+ * Grup ¸yeleri:
  * - Aysegul Kara
  * - Dilara Cetin
- * - Hüseyin Akbal
+ * - H¸seyin Akbal
  * - Melike Demirtas
  * - Yasin Can Kaya
  */
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <errno.h>
-
-#define MAX_CMD_LEN 1024
-#define MAX_ARGS 64
-
-// Arka plan süreçlerini takip için bir yapı
-typedef struct arkaplanProcess {
-    pid_t pid;
-    struct arkaplanProcess* sonraki;
-} arkaplanProcess_t;
-
-// Global Degiskenler
-arkaplanProcess_t* arkaplanListesi = NULL;
-int quit_requested = 0;
-
-// Function declarations
-void sigchld_handler(int);
-void arkaPlanProcessEkle(pid_t);
-void arkplanBekle();
-int parse_command(char* satir, char** args, char** girisDosyasi, char** cikisDosyasi, int* arkaplan, char*** pipeKomutları, int* pipeSayac);
-int execute_increment(const char*input_file) ;
-int execute_command(char**args, char*girisDosyasi, char*cikisDosyasi, int);
-int execute_pipe_commands(char** pipeCmd, int, char* globalGirisDosyasi, char* globalCikisDosyasi);
-void execute_sequential_commands(char* line);
+void Komut_isleme(char** args, int background);
+void Arkaplan_ekle(pid_t pid);
+void arkaplan_kontrol();
+void arkaplana_bekle();
+void Arkaplan_cikar(pid_t pid);
+int Arkaplan(char** args);
+void linux_shell();
+void giris_yonlendirme(char* command);
+void cikis_yonlendirme(char* command);
+void pipe_yonlendirme(char* command);
 
 #endif

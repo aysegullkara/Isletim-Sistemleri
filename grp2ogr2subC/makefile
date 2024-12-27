@@ -1,17 +1,20 @@
-HEADERS = Program.h
-OBJECTS = Program.o
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -g
 
-default: Program
+# Target program
+TARGET = Program
 
-%.o: %.c $(HEADERS)
-	gcc -c $< -o $@
+# Source files
+SRCS = Program.c
 
-program: $(OBJECTS)
-	gcc $(OBJECTS) -o $@
+# Default target
+all: $(TARGET)
 
+# Build target
+$(TARGET): $(SRCS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+
+# Clean target
 clean:
-	-rm -f $(OBJECTS)
-	-rm -f Program
-
-run: program
-	./Program
+	rm -f $(TARGET)
