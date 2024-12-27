@@ -1,3 +1,14 @@
+/*
+ * SAKARYA ÜNİVERSİTESİ 2024 GÜZ DÖNEMİ
+ * İŞLETİM SİSTEMLERİ PROJE ÖDEVİ
+ *
+ * Grup üyeleri:
+ * - Aysegul Kara
+ * - Dilara Cetin
+ * - Hüseyin Akbal
+ * - Melike Demirtas
+ * - Yasin Can Kaya
+ */
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
@@ -11,7 +22,7 @@
 #include <errno.h>
 
 #define MAX_CMD_LEN 1024
-#define MAX_ARGS 128
+#define MAX_ARGS 64
 
 // Arka plan süreçlerini takip için bir yapı
 typedef struct arkaplanProcess {
@@ -19,7 +30,7 @@ typedef struct arkaplanProcess {
     struct arkaplanProcess* sonraki;
 } arkaplanProcess_t;
 
-// Global Değişkenler
+// Global Degiskenler
 arkaplanProcess_t* arkaplanListesi = NULL;
 int quit_requested = 0;
 
@@ -27,7 +38,10 @@ int quit_requested = 0;
 void sigchld_handler(int);
 void arkaPlanProcessEkle(pid_t);
 void arkplanBekle();
-int parse_command(char* satir, char** args, char** girisDosyasi);
-int execute_command(char** args, char* girisDosyasi);
+int parse_command(char* satir, char** args, char** girisDosyasi, char** cikisDosyasi, int* arkaplan, char*** pipeKomutları, int* pipeSayac);
+int execute_increment(const char*input_file) ;
+int execute_command(char**args, char*girisDosyasi, char*cikisDosyasi, int);
+int execute_pipe_commands(char** pipeCmd, int, char* globalGirisDosyasi, char* globalCikisDosyasi);
+void execute_sequential_commands(char* line);
 
 #endif
